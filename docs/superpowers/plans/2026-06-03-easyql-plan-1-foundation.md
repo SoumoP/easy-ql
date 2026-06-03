@@ -659,7 +659,7 @@ mvn spring-boot:run
 Flyway will apply `V1__baseline.sql` to `warehouse_db` on first start. Confirm:
 
 ```bash
-curl -s http://localhost:8080/health | jq
+curl -s http://localhost:8090/health | jq
 # → {"status":"UP","app":"easy-ql"}
 ```
 
@@ -740,7 +740,7 @@ Expected log lines:
 
 In another terminal:
 ```bash
-curl -s http://localhost:8080/health
+curl -s http://localhost:8090/health
 ```
 Expected: `{"status":"UP","app":"easy-ql"}`
 
@@ -788,7 +788,7 @@ Plan 1 is complete when **all** of the following are true:
 1. `mvn clean verify` passes from a fresh clone with Docker running (Testcontainers pulls images). Surefire runs unit tests (`*Test.java`); Failsafe runs integration tests (`*IT.java`).
 2. `docker compose -f infra/docker-compose.yml up -d` brings up three healthy Postgres instances.
 3. `mvn spring-boot:run` boots the app and Flyway applies `V1__baseline.sql` to `warehouse_db`.
-4. `curl http://localhost:8080/health` returns `{"status":"UP","app":"easy-ql"}`.
+4. `curl http://localhost:8090/health` returns `{"status":"UP","app":"easy-ql"}`.
 5. The README's "Run the full stack locally" section can be followed top-to-bottom by a stranger with the prerequisites installed and produces the expected outputs at each step.
 6. All commits are pushed to `origin/main`.
 

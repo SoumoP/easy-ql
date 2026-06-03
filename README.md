@@ -68,7 +68,7 @@ mvn spring-boot:run
 Flyway will apply `V1__baseline.sql` to `warehouse_db` on first start. Confirm:
 
 ```bash
-curl -s http://localhost:8080/health | jq
+curl -s http://localhost:8090/health | jq
 # → {"status":"UP","app":"easy-ql"}
 ```
 
