@@ -320,7 +320,7 @@ spring:
     baseline-on-migrate: false
 
 server:
-  port: 8080
+  port: ${SERVER_PORT:8090}   # default 8090 to avoid common 8080 conflicts on dev laptops; override via env var when needed
 
 management:
   endpoints:
@@ -666,10 +666,10 @@ curl -s http://localhost:8090/health | jq
 ## Test
 
 ```bash
-mvn test
+mvn verify
 ```
 
-Runs the unit and integration tests. Testcontainers will pull `postgres:16` the first time.
+Surefire runs unit tests (`*Test.java`); Failsafe runs integration tests (`*IT.java`). Testcontainers will pull `postgres:16` the first time `mvn verify` is invoked.
 
 ## Stop the stack
 
