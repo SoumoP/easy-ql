@@ -1,0 +1,11 @@
+spring:
+  flyway:
+    enabled: true
+    locations: classpath:db/warehouse
+    schemas: public
+    baseline-on-migrate: false
+
+logging:
+  level:
+    com.soumyajit.easyql: DEBUG
+    org.flywaydb: INFO
