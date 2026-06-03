@@ -98,7 +98,6 @@ docker compose -f infra/docker-compose.yml down -v
 src/main/java/com/soumyajit/easyql/
   EasyqlApplication.java        Spring Boot entrypoint
   api/                          REST endpoints  (Plan 1: HealthController)
-  config/                       Spring configuration
 src/main/resources/
   application.yml               app config (datasources, flyway, server)
   db/warehouse/                 Flyway migrations for warehouse_db
