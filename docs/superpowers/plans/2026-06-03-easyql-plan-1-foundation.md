@@ -568,8 +568,8 @@ If the test FAILS with `JdbcSQLNonTransientConnectionException`, ensure Docker i
 
 - [ ] **Step 6.4: Run the full test suite to confirm no regressions**
 
-Run: `mvn test -q`
-Expected: `Tests run: 2, Failures: 0, Errors: 0` (HealthControllerTest + WarehouseConnectionIT).
+Run: `mvn verify -q`
+Expected: both `HealthControllerTest` (Surefire, `*Test.java`) and `WarehouseConnectionIT` (Failsafe, `*IT.java`) run; `BUILD SUCCESS`. `mvn test` alone does NOT run integration tests by Surefire/Failsafe convention — use `mvn verify` for the full suite.
 
 - [ ] **Step 6.5: Commit**
 
@@ -785,7 +785,7 @@ Each of these has a forward reference in spec §3.1 (architecture) and a roadmap
 
 Plan 1 is complete when **all** of the following are true:
 
-1. `mvn clean test` passes from a fresh clone with Docker running (Testcontainers pulls images).
+1. `mvn clean verify` passes from a fresh clone with Docker running (Testcontainers pulls images). Surefire runs unit tests (`*Test.java`); Failsafe runs integration tests (`*IT.java`).
 2. `docker compose -f infra/docker-compose.yml up -d` brings up three healthy Postgres instances.
 3. `mvn spring-boot:run` boots the app and Flyway applies `V1__baseline.sql` to `warehouse_db`.
 4. `curl http://localhost:8080/health` returns `{"status":"UP","app":"easy-ql"}`.
