@@ -1,3 +1,33 @@
 spring:
   application:
     name: easy-ql
+  datasource:
+    url: jdbc:postgresql://localhost:5435/warehouse_db
+    username: easyql
+    password: easyql
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      pool-name: warehouse-pool
+  flyway:
+    enabled: true
+    locations: classpath:db/warehouse
+    schemas: public
+    baseline-on-migrate: false
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: when-authorized
+
+logging:
+  level:
+    com.soumyajit.easyql: DEBUG
+    org.springframework.web: INFO
