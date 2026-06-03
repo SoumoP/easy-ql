@@ -215,7 +215,7 @@ services:
       POSTGRES_USER: easyql
       POSTGRES_PASSWORD: easyql
     ports:
-      - "5432:5432"
+      - "5435:5432"   # host 5435 → container 5432; avoids conflict with a Postgres already running on host 5432
     volumes:
       - warehouse-db-data:/var/lib/postgresql/data
     healthcheck:
@@ -306,7 +306,7 @@ spring:
   application:
     name: easy-ql
   datasource:
-    url: jdbc:postgresql://localhost:5432/warehouse_db
+    url: jdbc:postgresql://localhost:5435/warehouse_db
     username: easyql
     password: easyql
     driver-class-name: org.postgresql.Driver
