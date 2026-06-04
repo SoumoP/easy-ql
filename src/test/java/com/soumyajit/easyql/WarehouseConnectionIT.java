@@ -36,13 +36,21 @@ class WarehouseConnectionIT {
 
     @Test
     void baselineMigrationCreatesMetaTableWithExpectedRows() {
-        Integer rowCount = jdbc.queryForObject(
-                "select count(*) from _easyql_meta", Integer.class);
-        assertThat(rowCount).isEqualTo(3);
-
+        // V1 baseline must always have inserted these specific rows.
+        // We don't count total rows because later migrations add their own meta entries.
         String projectName = jdbc.queryForObject(
                 "select value from _easyql_meta where key = 'project'",
                 String.class);
         assertThat(projectName).isEqualTo("easy-ql");
+
+        String baselineVersion = jdbc.queryForObject(
+                "select value from _easyql_meta where key = 'schema_version_baseline'",
+                String.class);
+        assertThat(baselineVersion).isEqualTo("V1");
+
+        String planOrigin = jdbc.queryForObject(
+                "select value from _easyql_meta where key = 'plan_origin'",
+                String.class);
+        assertThat(planOrigin).isEqualTo("plan-1-foundation");
     }
 }
